@@ -8,12 +8,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,8 +61,11 @@ public class ClienteController {
 	 * @return Un modelo y vista "clientes.html" que muestra la lista de clientes
 	 */
 	@PostMapping("/cliente/guardar")
-	public String getModelPageClientes(@ModelAttribute("cliente") Cliente cliente) {
+	public String getModelPageClientes(@ModelAttribute("cliente") @Valid Cliente cliente, BindingResult resultValidation) {
 		
+		if (resultValidation.hasErrors()){
+			return "nuevocliente.html";
+		}else{
 		/**
 		 * Se agrega el objeto que vino de la vista a la listaClientes de la clase que
 		 * implementa IServiceCliente
@@ -70,6 +76,7 @@ public class ClienteController {
 		 * modelAndView para luego ser recorrida y mostrada en la vista("clientes")
 		 */
 		return "redirect:/cliente/lista";
+		}
 	}
 
 	/**
