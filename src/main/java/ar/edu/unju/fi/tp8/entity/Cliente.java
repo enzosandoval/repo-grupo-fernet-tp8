@@ -23,6 +23,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * It uses MySQL
@@ -45,21 +51,30 @@ public class Cliente implements Serializable {
 	@Column(name = "cli_id")
 	private long id;
 
+	@NotEmpty(message="Debe seleccionar un tipo de documento")
 	@Column(name = "cli_tipoDocumento", length = 32, nullable = false)
 	private String tipoDocumento;
 
+	@NotNull(message="Falta ingresar Nro de Documento")
+	@Size(min=8,max=8, message="Este campo debe tener solo 8 dígitos")
 	@Column(name = "cli_nroDocumento", length = 8, nullable = false)
 	private int nroDocumento;
 
+	@NotEmpty(message="Debe ingresar el dato Nombre y Apellido")
+	@Size(min=5, max=50,message="Este campo al menos debe tener 5 caracteres")
 	@Column(name = "cli_nombreApellido", length = 64, nullable = false)
 	private String nombreApellido;
 
+	@Email(message="Debe ingresar un correo electrónico válido")
 	@Column(name = "cli_email", length = 128, nullable = false)
 	private String email;
 
+	@NotBlank(message="El campo contraseña no puede quedar vacío y no debe contener espacios en blanco")
+	@Size(min=8,max=64,message="La contraseña debe tener como mínimo 8 caracteres y como máximo 64.")
 	@Column(name = "cli_password", length = 64, nullable = false)
 	private String password;
 
+	@NotNull(message="El campo Fecha Nacimiento no puede ser vacío")
 	@Column(name = "cli_fechaNacimiento")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaNacimiento;
@@ -67,16 +82,22 @@ public class Cliente implements Serializable {
 	@Column(name = "cli_edad")
 	private int edad;
 
+	@NotEmpty(message="El campo Codigo Area no puede ser vacío")
+	@Size(min=2, max=4, message="Este campo solo admite como mínimo 2 dígitos y como máximo 4")
 	@Column(name = "cli_codigoAreaTelefono", nullable = false)
 	private String codigoAreaTelefono;
 
+	@NotNull(message="El campo Numero Telefono no puede ser nulo")
+	@Size(min=6,max=8,message="El campo solo admite como mínimo 6 dígitos y como máximo 8")
 	@Column(name = "cli_nroTelefono", nullable = false)
 	private int nroTelefono;
 
+	@NotNull(message="El campo Fecha última Compra no puede ser nulo")
 	@Column(name = "cli_fechaUltimaCompra")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaUltimaCompra;
 
+	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cue_id")
 	private Cuenta cuenta;
