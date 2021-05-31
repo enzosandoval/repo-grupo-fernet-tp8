@@ -13,7 +13,10 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author Team Fernet
@@ -30,23 +33,33 @@ public class Producto {
 	@Column(name = "prod_codigo")
 	private long codigo;
 
-	@NotBlank(message = "Nombre real requerido")
+	@NotEmpty(message = "Debe ingresar el nombre del producto.")
 	@Column(name = "prod_nombre")
 	private String nombre;
 
+	@NotNull(message="El campo Precio no puede ser nulo")
+	@Size(max=20,message="Los precios deben ser menores que 20 dígitos")
+	@Min(value=1, message="El precio mínimo es 1$")
 	@Column(name = "prod_precio")
 	private double precio;
 
+	@NotEmpty(message="El campo Marca no puede ser nulo ni estar vacío")
+	@Size(min=2, max=20, message="El nombre de la marca debe tener entre 2 y 20 caracteres")
 	@Column(name = "prod_marca")
 	private String marca;
 
+	@NotEmpty(message="Debe agregar una descripción para el producto")
+	@Size(min=4, message="Ingrese en Descripción al menos una palabra de 4 caracteres")
 	@Column(name = "prod_descripcion")
 	private String descripcion;
 
+	@NotNull(message="Falta insertar una imagen del producto")
 	@Lob
 	@Column(name = "prod_imagen", columnDefinition = "LONGBLOB")
 	private String imagen;
 
+	@NotNull(message="Falta ingresar dato para el campo Stock")
+	@Min(value=1, message="Ingrese un valor mayor o igual a 1")
 	@Column(name = "prod_stock")
 	private int stock;
 

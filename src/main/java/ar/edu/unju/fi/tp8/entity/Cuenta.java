@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
@@ -24,13 +27,17 @@ public class Cuenta {
   @Column(name = "cue_id")
   private Long id;
 
+  @NotNull(message="El campo Saldo de la Cuenta no puede ser nulo")
+  @Min(value=0,message="El valor para este campo debe ser mayor o igual a cero")
   @Column(name = "cue_saldo")
   private double saldo;
 
+  @NotNull(message="El campo Fecha Creacion Cuenta no puede ser nulo")
   @Column(name = "cue_fechaCreacion")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate fechaCreacion;
 
+ @NotEmpty(message="Seleccione un valor para Estado. No puede ser nulo ni vacío")
   @Column(name = "cue_estado")
   private String estado;
 
