@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Min;
@@ -38,7 +39,7 @@ public class Producto {
 	private String nombre;
 
 	@NotNull(message="El campo Precio no puede ser nulo")
-	@Size(max=20,message="Los precios deben ser menores que 20 dígitos")
+	@Range(max=20,message="Los precios deben ser menores que 20 dígitos")
 	@Min(value=1, message="El precio mínimo es 1$")
 	@Column(name = "prod_precio")
 	private double precio;
