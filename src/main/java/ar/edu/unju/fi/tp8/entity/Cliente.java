@@ -57,7 +57,7 @@ public class Cliente implements Serializable {
 	private String tipoDocumento;
 
 	@NotNull(message="Falta ingresar Nro de Documento")
-	@Range(min=8,max=8, message="Este campo debe tener solo 8 dígitos")
+	@Range(min=10000000,max=99999999, message="Este campo debe tener solo números de 8 dígitos")
 	@Column(name = "cli_nroDocumento", length = 8, nullable = false)
 	private int nroDocumento;
 
@@ -89,7 +89,7 @@ public class Cliente implements Serializable {
 	private String codigoAreaTelefono;
 
 	@NotNull(message="El campo Numero Telefono no puede ser nulo")
-	@Range(min=6,max=8,message="El campo solo admite como mínimo 6 dígitos y como máximo 8")
+	@Range(min=100000,max=99999999,message="El campo solo admite números de entre 6 y 8 dígitos incluidos")
 	@Column(name = "cli_nroTelefono", nullable = false)
 	private int nroTelefono;
 
