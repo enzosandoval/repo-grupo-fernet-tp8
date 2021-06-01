@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.Max;
