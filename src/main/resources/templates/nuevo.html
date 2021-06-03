@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nuevo Producto</title>
+<title>Formulario Producto</title>
 <link rel="stylesheet"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -17,63 +17,68 @@
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-md-7 formulario my-5 shadow p-4 bg-white rounded">
+				<h1 th:if="${producto.codigo == 0}" class="text-center">Cargar
+					Producto</h1>
+				<h1 th:if="${producto.codigo != 0}" class="text-center">Modificar
+					Producto</h1>
+				<br>
 				<form th:action="@{/producto/guardar}" th:object="${producto}"
 					method="POST" class="form_content" enctype="multipart/form-data">
-					<h1 class="form_header text-center">Nuevo Producto</h1>
-					<br>
-					<div class="form-group row">
-						<label for="codigo" class="col-sm-2 col-form-label">Codigo</label>
-						<div class="col-sm-10">
-							<input type="number" class="form-control" id="codigo"
-								placeholder="Codigo" th:field="*{codigo}" th:required="true">
-						</div>
-					</div>
+					<input type="hidden" th:field="*{codigo}" />
 					<div class="form-group row">
 						<label for="nombreApellido" class="col-sm-2 col-form-label">Nombre</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="nombre"
-								placeholder="Nombre" th:field="*{nombre}" th:required="true">
+								placeholder="Nombre" th:field="*{nombre}">
+							<div class="form-text text-danger"
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="precio" class="col-sm-2 col-form-label">Precio</label>
 						<div class="col-sm-10">
 							<input type="number" class="form-control" id="precio"
-								placeholder="Precio" th:field="*{precio}" th:required="true"
-								min="0" step='0.01' value='0.00'>
+								placeholder="Precio" th:field="*{precio}" min="0" step='0.01'
+								value='0.00'>
+							<div class="form-text text-danger"
+								th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="marca" class="col-sm-2 col-form-label">Marca</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="marca"
-								placeholder="Marca" th:field="*{marca}" th:required="true">
+								placeholder="Marca" th:field="*{marca}">
+							<div class="form-text text-danger"
+								th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}"></div>
 						</div>
 					</div>
 					<div class="form-group row">
 						<label for="stock" class="col-sm-2 col-form-label">Stock</label>
 						<div class="col-sm-10">
 							<input type="number" class="form-control" id="stock"
-								placeholder="Stock" th:field="*{stock}" min="1" value="1"
-								th:required="true">
+								placeholder="Stock" th:field="*{stock}">
+							<div class="form-text text-danger"
+								th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="descripcion">Descripcion</label>
-						<textarea class="form-control" id="descripcion" rows="3"
-							th:field="*{descripcion}" th:required="true"></textarea>
+					<div class="form-group row">
+						<label for="descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" id="descripcion" rows="3"
+								th:field="*{descripcion}"></textarea>
+							<div class="form-text text-danger"
+								th:if="${#fields.hasErrors('descripcion')}"
+								th:errors="*{descripcion}"></div>
+						</div>
 					</div>
 					<div class="form-group row">
 						<label for="file" class="col-sm-2 col-form-label">Imagen</label>
 						<div class="col-sm-10 d-flex align-items-center">
-							<label for="file" class="bttn mb-0">
-								<i class="fa fa-cloud-upload" aria-hidden="true"></i> Subir
-								imagen del producto
-							</label>
 							<input type="file" name="file" class="form-control-file"
-								id="file"
 								accept="image/x-png,image/gif,image/jpeg,image/png,image/jpeg"
-								style='display: none;'>
+								onchange="loadFile(event)">
+							<img id="output" style="padding-top: 2px; width: 146px;" />
 						</div>
 					</div>
 					<div class="form-group row">
@@ -86,6 +91,12 @@
 		</div>
 	</div>
 	<div th:replace="layout/footer :: footer"></div>
+	<script type="text/javascript">
+		var loadFile = function(event) {
+		var image = document.getElementById('output');
+		image.src = URL.createObjectURL(event.target.files[0]);
+	};
+	</script>
 </body>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>

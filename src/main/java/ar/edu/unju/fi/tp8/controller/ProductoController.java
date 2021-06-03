@@ -49,6 +49,7 @@ public class ProductoController {
 	 */
 	@GetMapping("/producto")
 	public String getPage(Model model) {
+		producto = new Producto();
 		model.addAttribute(producto);
 		return "nuevo";
 	}
@@ -92,17 +93,13 @@ public class ProductoController {
 			@Valid @ModelAttribute("producto") Producto producto, BindingResult result, Model model)
 			throws IOException {
 		if (result.hasErrors()) {
-			System.out.println("Error!");
 			model.addAttribute("producto", producto);
-			return "productos";
-
+			return "nuevo";
 		} else {
-			System.out.println("Else");
 			byte[] content = file.getBytes();
 			String base64 = Base64.getEncoder().encodeToString(content);
 			producto.setImagen(base64);
 			productoService.guardar(producto);
-
 			return "redirect:/productos";
 		}
 
@@ -123,6 +120,7 @@ public class ProductoController {
 			String base64 = Base64.getEncoder().encodeToString(content);
 			producto.setImagen(base64);
 		}
+		System.out.println("Hola" + producto.getImagen());
 		productoService.guardar(producto);
 		return "redirect:/productos";
 	}
@@ -145,16 +143,6 @@ public class ProductoController {
 	 */
 	@GetMapping("/producto/ultimo")
 	public String getUltimoProducto(Model map) throws Exception {
-//		List<Producto> productos = new ArrayList<>();
-//		productos = productoService.obtenerProductos();
-//		if (productos.size() > 0) {
-//			map.addAttribute("producto", productoService.obtenerUltimo());
-//		}
-//		map.addAttribute("productos", productos);
-//		producto = null;
-//		if(productoService.obtenerUltimo() != null) {
-//			producto = productoService.obtenerUltimo();
-//		}
 		map.addAttribute("producto", productoService.obtenerUltimo());
 		return "ultimoproducto";
 	}

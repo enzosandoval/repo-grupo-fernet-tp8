@@ -5,6 +5,7 @@ package ar.edu.unju.fi.tp8.service.imp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -56,6 +57,21 @@ public class ClienteServiceImp implements IClienteService {
 		LOGGER.info("METHOD: buscarCliente()");
 		Cliente cliente = clienteRepository.findByNroDocumento(dni);
 		LOGGER.info("METHOD: Cliente: " + cliente.getNombreApellido());
+		return cliente;
+	}
+	
+	@Override
+	public Cliente obtenerClienteById(long id) throws Exception{
+		LOGGER.info("SERVICE: ClienteService");
+		LOGGER.info("METHOD: buscarClienteById()");
+		Optional<Cliente> optional = clienteRepository.findById(id);
+		Cliente cliente = null;
+		if (optional.isPresent()) {
+			cliente = optional.get();
+			LOGGER.info("RESULT: Cliente: ");
+		} else {
+			throw new Exception("Cliente no encontrado");
+		}
 		return cliente;
 	}
 

@@ -19,92 +19,89 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-@Table( name = "CUENTAS")
+@Table(name = "CUENTAS")
 public class Cuenta {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "cue_id")
-  private Long id;
 
-  @NotNull(message="El campo Saldo de la Cuenta no puede ser nulo")
-  @Min(value=0,message="El valor para este campo debe ser mayor o igual a cero")
-  @Column(name = "cue_saldo")
-  private double saldo;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cue_id")
+	private Long id;
 
-  @NotNull(message="El campo Fecha Creacion Cuenta no puede ser nulo")
-  @Column(name = "cue_fechaCreacion")
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  private LocalDate fechaCreacion;
+	@NotNull(message = "El campo Saldo de la Cuenta no puede ser nulo")
+	@Min(value = 0, message = "El valor para este campo debe ser mayor o igual a cero")
+	@Column(name = "cue_saldo")
+	private double saldo;
 
- @NotEmpty(message="Seleccione un valor para Estado. No puede ser nulo ni vacío")
-  @Column(name = "cue_estado")
-  private String estado;
+	@NotNull(message = "El campo Fecha Creacion Cuenta no puede ser nulo")
+	@Column(name = "cue_fechaCreacion")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaCreacion;
 
-  @OneToOne(mappedBy = "cuenta", fetch = FetchType.LAZY)
-  private Cliente cliente;
+	@NotEmpty(message = "Seleccione un valor para Estado. No puede ser nulo ni vacío")
+	@Column(name = "cue_estado")
+	private String estado;
 
-  // Constructor Vacio
-  public Cuenta() {
-  }
+	@OneToOne(mappedBy = "cuenta", fetch = FetchType.LAZY)
+	private Cliente cliente;
 
-  // Constructor Parametrizado
-  public Cuenta(double saldo, LocalDate fechaCreacion, String estado, Cliente cliente) {
-    this.saldo = saldo;
-    this.fechaCreacion = fechaCreacion;
-    this.estado = estado;
-    this.cliente = cliente;
-  }
+	// Constructor Vacio
+	public Cuenta() {
+	}
 
-  
-  // Getter and Setter
-  public Long getId() {
-    return id;
-  }
+	// Constructor Parametrizado
+	public Cuenta(double saldo, LocalDate fechaCreacion, String estado, Cliente cliente) {
+		this.saldo = saldo;
+		this.fechaCreacion = fechaCreacion;
+		this.estado = estado;
+		this.cliente = cliente;
+	}
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+	// Getter and Setter
+	public Long getId() {
+		return id;
+	}
 
-  public double getSaldo() {
-    return saldo;
-  }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-  public void setSaldo(double saldo) {
-    this.saldo = saldo;
-  }
+	public double getSaldo() {
+		return saldo;
+	}
 
-  public LocalDate getFechaCreacion() {
-    return fechaCreacion;
-  }
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
 
-  public void setFechaCreacion(LocalDate fechaCreacion) {
-    this.fechaCreacion = fechaCreacion;
-  }
+	public LocalDate getFechaCreacion() {
+		return fechaCreacion;
+	}
 
-  public String getEstado() {
-    return estado;
-  }
+	public void setFechaCreacion(LocalDate fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
 
-  public void setEstado(String estado) {
-    this.estado = estado;
-  }
+	public String getEstado() {
+		return estado;
+	}
 
-  public Cliente getCliente() {
-    return cliente;
-  }
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
-  public void setCliente(Cliente cliente) {
-    this.cliente = cliente;
-  }
+	public Cliente getCliente() {
+		return cliente;
+	}
 
-  // to String
-  @Override
-  public String toString() {
-    return "Cuenta [cliente=" + cliente + ", estado=" + estado + ", fechaCreacion=" + fechaCreacion + ", id=" + id
-        + ", saldo=" + saldo + "]";
-  }
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
-
+	// to String
+	@Override
+	public String toString() {
+		return "Cuenta [cliente=" + cliente + ", estado=" + estado + ", fechaCreacion=" + fechaCreacion + ", id=" + id
+				+ ", saldo=" + saldo + "]";
+	}
 
 }

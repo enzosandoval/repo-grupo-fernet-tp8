@@ -20,6 +20,8 @@ public interface IClienteService {
 
 	public Cliente obtenerCliente(int dni);
 	
+	public Cliente obtenerClienteById(long id) throws Exception;
+	
 	public List<Cliente> obtenerClientes();
 
 	public Page<Cliente> findAll(Pageable pagable);

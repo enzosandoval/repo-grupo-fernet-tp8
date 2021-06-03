@@ -26,6 +26,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -57,12 +59,13 @@ public class Cliente implements Serializable {
 	private String tipoDocumento;
 
 	@NotNull(message="Falta ingresar Nro de Documento")
-	@Range(min=10000000,max=99999999, message="Este campo debe tener solo números de 8 dígitos")
+	@Max(value=99999999, message="Número de DNI máximo es 99.999.999")
+	@Min(value=1, message="Número de DNI minimo es 1")
 	@Column(name = "cli_nroDocumento", length = 8, nullable = false)
 	private int nroDocumento;
 
 	@NotEmpty(message="Debe ingresar el dato Nombre y Apellido")
-	@Size(min=5, max=50,message="Este campo al menos debe tener 5 caracteres")
+	@Size(min=5, max=50, message="Este campo al menos debe tener 5 caracteres")
 	@Column(name = "cli_nombreApellido", length = 64, nullable = false)
 	private String nombreApellido;
 
@@ -71,7 +74,7 @@ public class Cliente implements Serializable {
 	private String email;
 
 	@NotBlank(message="El campo contraseña no puede quedar vacío y no debe contener espacios en blanco")
-	@Size(min=8,max=64,message="La contraseña debe tener como mínimo 8 caracteres y como máximo 64.")
+	@Size(min=8,max=64, message="La contraseña debe tener como mínimo 8 caracteres y como máximo 64.")
 	@Column(name = "cli_password", length = 64, nullable = false)
 	private String password;
 

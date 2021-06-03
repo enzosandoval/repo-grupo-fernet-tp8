@@ -51,6 +51,7 @@ public class ClienteController {
 		 * El attribute "cliente" es el objeto que esta en el form mientras que cliente
 		 * es el atributo de tipo Cliente de esta clase
 		 */
+		cliente = new Cliente();
 		model.addAttribute("cliente", cliente);
 		return "nuevocliente.html";
 	}
@@ -103,11 +104,31 @@ public class ClienteController {
 		return "clientes";
 	}
 	
-	@PostMapping(value = "/cliente/update")
-	public String getUpdatePage(@ModelAttribute("producto") Cliente cliente) throws Exception {
-		clienteService.guardar(cliente);
-		return "redirect:/cliente/lista";
+	/**
+	 * 
+	 * @param id
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping(value = "/cliente/modificar/{id}")
+	public String getUpdatePage(@PathVariable(value = "id") int id, Model model) throws Exception {
+		cliente = clienteService.obtenerClienteById(id);
+		model.addAttribute("cliente", cliente);
+		return "nuevocliente";
 	}
+	
+//	/**
+//	 * 
+//	 * @param cliente
+//	 * @return
+//	 * @throws Exception
+//	 */
+//	@PostMapping(value = "/cliente/update")
+//	public String getUpdatePage(@ModelAttribute("cliente") Cliente cliente) throws Exception {
+//		clienteService.guardar(cliente);
+//		return "redirect:/cliente/lista";
+//	}
 	
 	/**
 	 * 

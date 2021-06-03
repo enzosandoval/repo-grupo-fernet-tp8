@@ -68,7 +68,7 @@ public class ProductoServiceImp implements IProductoService {
 		Producto producto = null;
 		if (optional.isPresent()) {
 			producto = optional.get();
-			LOGGER.info("METHOD: Producto: " + producto.getNombre());
+			LOGGER.info("RESULT: Producto: " + producto.getNombre());
 		} else {
 			throw new Exception("Producto no encontrado");
 		}
