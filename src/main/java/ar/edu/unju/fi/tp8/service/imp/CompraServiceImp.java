@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unju.fi.tp8.entity.Compra;
 import ar.edu.unju.fi.tp8.repository.CompraRepository;
@@ -34,12 +35,28 @@ public class CompraServiceImp implements ICompraService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Compra> obtenerCompras() {
 		LOGGER.info("SERVICE: CompraService");
 		LOGGER.info("METHOD: obtenerCompras()");
 		List<Compra> compras = new ArrayList<>();
 		compraRepository.findAll().forEach(compras::add);
-		LOGGER.info("RESULT: Lista tamaño: " +  compras.size());
+		LOGGER.info("RESULT: Lista tamaño: " + compras.size());
+		return compras;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Compra> consultarCompras(String nombreProducto, double monto) {
+		LOGGER.info("SERVICE: CompraService");
+		LOGGER.info("METHOD: consultarCompras()");
+		List<Compra> compras = new ArrayList<Compra>();
+		if (!nombreProducto.isEmpty() && monto >= 0) {
+			compras = compraRepository.findByProductoNombreAndTotalGreaterThanEqual(nombreProducto, monto);
+		} else if (nombreProducto.isEmpty() && monto >= 0) {
+			compras = compraRepository.findByTotalGreaterThanEqual(monto);
+		}
+		LOGGER.info("RESULT: Lista compras tamaño: " + compras.size());
 		return compras;
 	}
 

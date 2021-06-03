@@ -13,5 +13,7 @@ public interface ICompraService {
 	public void guardarCompra(Compra compra);
 
 	public List<Compra> obtenerCompras();
+	
+	public List<Compra> consultarCompras(String nombreProducto, double monto);
 
 }

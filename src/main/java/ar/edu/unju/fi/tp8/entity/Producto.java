@@ -59,7 +59,7 @@ public class Producto {
 	private String imagen;
 
 	@NotNull(message="Falta ingresar dato para el campo Stock")
-	@Min(value=1, message="Ingrese un valor mayor o igual a 1")
+	@Min(value=0, message="Ingrese un valor mayor o igual a 0")
 	@Column(name = "prod_stock")
 	private int stock;
 
