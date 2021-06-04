@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ar.edu.unju.fi.tp8.entity.Producto;
 import ar.edu.unju.fi.tp8.service.IProductoService;
@@ -50,7 +49,15 @@ public class ProductoController {
 	@GetMapping("/producto")
 	public String getPage(Model model) {
 		producto = new Producto();
+		producto.setImagen("");
 		model.addAttribute(producto);
+		return "nuevo";
+	}
+
+	@GetMapping(value = "/producto/modificar/{id}")
+	public String getUpdatePage(@PathVariable(value = "id") int id, Model model) throws Exception {
+		producto = productoService.buscarProducto(id);
+		model.addAttribute("producto", producto);
 		return "nuevo";
 	}
 
@@ -89,40 +96,22 @@ public class ProductoController {
 	 * @throws IOException
 	 */
 	@PostMapping(value = "/producto/guardar", consumes = "multipart/form-data")
-	public String getResultado(@RequestParam("file") MultipartFile file, RedirectAttributes attributes,
+	public String getResultado(@RequestParam("file") MultipartFile file,
 			@Valid @ModelAttribute("producto") Producto producto, BindingResult result, Model model)
 			throws IOException {
+		System.out.println("Imagen" + producto.getImagen());
 		if (result.hasErrors()) {
 			model.addAttribute("producto", producto);
 			return "nuevo";
 		} else {
-			byte[] content = file.getBytes();
-			String base64 = Base64.getEncoder().encodeToString(content);
-			producto.setImagen(base64);
+			if (!file.isEmpty()) {
+				byte[] content = file.getBytes();
+				String base64 = Base64.getEncoder().encodeToString(content);
+				producto.setImagen(base64);
+			}
 			productoService.guardar(producto);
 			return "redirect:/productos";
 		}
-
-	}
-
-	/**
-	 * 
-	 * @param file
-	 * @param producto
-	 * @return
-	 * @throws Exception
-	 */
-	@PostMapping(value = "/update", consumes = "multipart/form-data")
-	public String getUpdatePage(@RequestParam("file") MultipartFile file, @ModelAttribute("producto") Producto producto)
-			throws Exception {
-		if (!file.isEmpty()) {
-			byte[] content = file.getBytes();
-			String base64 = Base64.getEncoder().encodeToString(content);
-			producto.setImagen(base64);
-		}
-		System.out.println("Hola" + producto.getImagen());
-		productoService.guardar(producto);
-		return "redirect:/productos";
 	}
 
 	/**

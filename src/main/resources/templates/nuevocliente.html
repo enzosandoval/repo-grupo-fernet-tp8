@@ -139,7 +139,8 @@
 							de la Cuenta</label>
 						<div class="col-sm-9">
 							<input type="number" class="form-control" id="id"
-								placeholder="Saldo" th:field="*{cuenta.saldo}">
+								placeholder="Saldo" th:field="*{cuenta.saldo}" min="0"
+								step='0.01' value='0.00'>
 							<div class="form-text text-danger"
 								th:if="${#fields.hasErrors('cuenta.saldo')}"
 								th:errors="*{cuenta.saldo}"></div>
@@ -175,8 +176,8 @@
 					<div class="form-group row">
 						<div class="col-sm-12">
 							<button type="submit" class="btn btn-primary form_button">Guardar</button>
-							<a th:href="@{/cliente/lista}"
-								class="btn btn-secondary" id="delRef">Cancelar </a>
+							<a th:href="@{/cliente/lista}" class="btn btn-secondary"
+								id="delRef">Cancelar </a>
 						</div>
 					</div>
 				</form>

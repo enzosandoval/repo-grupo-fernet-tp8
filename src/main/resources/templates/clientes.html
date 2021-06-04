@@ -77,15 +77,15 @@
 										</div>
 										<div class="modal-body">
 											<p class="alert alert-danger">
-												Are you sure you want to delete <span
+												Estas seguro que deseas borrar a <span
 													th:text="${cliente.nombreApellido}"></span>?
 											</p>
 										</div>
 										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
 											<a th:href="@{/cliente/delete/{id}(id=${cliente.id})}"
-												class="btn btn-danger" id="delRef">Delete</a>
+												class="btn btn-danger" id="delRef">Aceptar</a>
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Cancelar</button>		
 										</div>
 									</div>
 								</div>

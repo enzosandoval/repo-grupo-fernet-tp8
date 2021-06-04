@@ -118,18 +118,6 @@ public class ClienteController {
 		return "nuevocliente";
 	}
 	
-//	/**
-//	 * 
-//	 * @param cliente
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	@PostMapping(value = "/cliente/update")
-//	public String getUpdatePage(@ModelAttribute("cliente") Cliente cliente) throws Exception {
-//		clienteService.guardar(cliente);
-//		return "redirect:/cliente/lista";
-//	}
-	
 	/**
 	 * 
 	 * @param id

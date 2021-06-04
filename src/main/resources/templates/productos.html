@@ -29,7 +29,7 @@
 						<tr class="text-center">
 							<th style="width: 6%">ID</th>
 							<th>Nombre</th>
-							<th>Nombre</th>
+							<th>Marca</th>
 							<th>Descripción</th>
 							<th style="width: 10%">Imagen</th>
 							<th style="width: 11%">Precio</th>
@@ -51,85 +51,11 @@
 								th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">10.00</span></td>
 							<td th:text="${producto.stock}"></td>
 							<td><a th:href="@{/comprar/{id}(id=${producto.codigo})}"
-													class="btn btn-primary" id="buyRef">Vender<i
-									class="fa fa-shopping-cart"></i></a>
-								</td>
-							<td><a data-toggle="modal" data-target="#updateModal"
-								class="btn btn-warning"
-								th:attr="data-target='#updateModal'+${producto.codigo}">Editar
-									<i class="fa fa-edit"></i>
-							</a> <!--#Modal form for Producto update-->
-								<div class="myFormUpdate">
-									<form th:action="@{/update}" method="POST" class="form_content"
-										enctype="multipart/form-data">
-										<div class="modal fade" th:id="updateModal+${producto.codigo}"
-											id="updateModal" tabindex="-1" role="dialog"
-											aria-labelledby="updateModalLabel" aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h4 class="modal-title" id="updateModalLabel">MODIFICAR
-															PRODUCTO</h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<div class="form-group">
-															<input type="hidden" class="form-control" id="id"
-																th:name="codigo" th:value="*{producto.codigo}" />
-														</div>
-														<div class="form-group">
-															<label for="titulo" class="col-form-label">Nombre</label>
-															<input type="text" class="form-control" id="titulo"
-																th:name="nombre" th:value="*{producto.nombre}" />
-														</div>
-														<div class="form-group">
-															<label for="marca" class="col-form-label">Marca</label>
-															<input type="text" class="form-control" id="marca"
-																th:name="marca" th:value="*{producto.marca}">
-														</div>
-														<div class="form-group">
-															<label for="marca" class="col-form-label">Precio</label>
-															<input type="number" class="form-control" id="precio"
-																th:name="precio" th:value="*{producto.precio}"
-																step="any">
-														</div>
-														<div class="form-group">
-															<label for="fecha" class="col-form-label">Stock</label>
-															<input type="number" class="form-control" id="fecha"
-																th:name="stock" th:value="*{producto.stock}" />
-														</div>
-														<div class="form-group">
-															<label for="descripcion" class="col-form-label">Descripcion</label>
-															<input type="text" class="form-control" id="descripcion"
-																th:name="descripcion" th:value="*{producto.descripcion}" />
-														</div>
-														<div class="form-group">
-															<!-- La magia -->
-															<input type="hidden" class="form-control" id="imagen"
-																th:name="imagen" th:value="*{producto.imagen}" />
-															<img width="100px" class="card-img-top m-auto"
-																th:src="*{'data:image/png;base64,'+producto.imagen}"
-																id="imagen" th:field="*{imagen}">
-															<label for="file" class="bttn"> Subir Imagen </label>
-															<!-- HAY ALGO RARO CON TH:NAME ACA JAJA! -->
-															<input type="file" name="file" class="form-control-file"
-																accept="image/x-png,image/gif,image/jpeg,image/png,image/jpeg">
-														</div>
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Cerrar</button>
-														<input type="submit" class="btn btn-primary"
-															value="Guardar" />
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
-								</div></td>
+								class="btn btn-primary" id="buyRef">Vender<i
+									class="fa fa-shopping-cart"></i></a></td>
+							<td><a
+								th:href="@{/producto/modificar/{id}(id=${producto.codigo})}"
+								class="btn btn-warning">Editar<i class="fa fa-edit"></i></a></td>
 							<td><a data-toggle="modal"
 								data-target="#removeProductoModal" class="btn btn-danger delBtn"
 								th:attr="data-target='#removeProductoModal'+${producto.codigo}">Eliminar
@@ -156,10 +82,10 @@
 												</p>
 											</div>
 											<div class="modal-footer">
+												<a th:href="@{/delete/{id}(id=${producto.codigo})}"
+													class="btn btn-danger" id="delRef">Aceptar</a>
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Cancelar</button>
-												<a th:href="@{/delete/{id}(id=${producto.codigo})}"
-													class="btn btn-danger" id="delRef">Borrar</a>
 											</div>
 										</div>
 									</div>
